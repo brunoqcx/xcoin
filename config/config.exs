@@ -30,6 +30,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :xcoin, Xcoin.Accounts.Guardian,
+  issuer: "xcoin",
+  secret_key: "L6lERdsIzqE+QAlLOusLv/GwKGjOvYIy665AY4cqeAQ1bQQAjAjq493+57B6uj7D"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
