@@ -25,5 +25,6 @@ defmodule XcoinWeb.Router do
     pipe_through [:api, :auth, :ensure_auth]
 
     get "/users/:id", UserController, :show
+    resources "/exchanges", ExchangeController, only: [:index, :show, :create]
   end
 end

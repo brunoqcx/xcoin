@@ -1,0 +1,70 @@
+defmodule Xcoin.Currency do
+  @moduledoc """
+  The Currency context.
+  """
+
+  import Ecto.Query, warn: false
+  alias Xcoin.Repo
+
+  alias Xcoin.Currency.Exchange
+
+  @doc """
+  Returns the list of exchanges.
+
+  ## Examples
+
+      iex> list_exchanges()
+      [%Exchange{}, ...]
+
+  """
+  def list_exchanges do
+    Repo.all(Exchange)
+  end
+
+  @doc """
+  Gets a single exchange.
+
+  Raises `Ecto.NoResultsError` if the Exchange does not exist.
+
+  ## Examples
+
+      iex> get_exchange!(123)
+      %Exchange{}
+
+      iex> get_exchange!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_exchange!(id), do: Repo.get!(Exchange, id)
+
+  @doc """
+  Creates a exchange.
+
+  ## Examples
+
+      iex> create_exchange(%{field: value})
+      {:ok, %Exchange{}}
+
+      iex> create_exchange(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_exchange(attrs \\ %{}) do
+    %Exchange{}
+    |> Exchange.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking exchange changes.
+
+  ## Examples
+
+      iex> change_exchange(exchange)
+      %Ecto.Changeset{data: %Exchange{}}
+
+  """
+  def change_exchange(%Exchange{} = exchange, attrs \\ %{}) do
+    Exchange.changeset(exchange, attrs)
+  end
+end
