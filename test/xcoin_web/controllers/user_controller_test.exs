@@ -66,6 +66,32 @@ defmodule XcoinWeb.UserControllerTest do
     end
   end
 
+  describe "authenticated scopes" do
+    test "requires authentication", %{conn: conn} do
+      user = user_fixture(%{
+        email: "some email 1",
+        password: "some password_hash"
+      })
+
+      conn = get(conn, ~p"/api/users/#{user.id}")
+      assert conn.resp_body =~ "unauthenticated"
+    end
+
+    test "get user info when authenticated", %{conn: conn} do
+      user = user_fixture(%{
+        email: "some email 1",
+        password: "some password_hash"
+      })
+
+      conn = Guardian.Plug.sign_in(conn, user)
+      {:ok, token, _claims} = Guardian.encode_and_sign(user)
+
+      conn = get(conn, ~p"/api/users/#{user.id}", %{"Authorization" => "Bearer #{token}"})
+
+      assert json_response(conn, 200)["data"] ==  %{"email" => user.email, "id" => user.id}
+    end
+  end
+
   defp create_user(_) do
     user = user_fixture()
     %{user: user}
