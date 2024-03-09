@@ -50,7 +50,7 @@ defmodule XcoinWeb.UserControllerTest do
     test "with valid credentials", %{conn: conn, user: user} do
       conn = post(conn, ~p"/api/login", %{
         email: user.email,
-        password: "some password"
+        password: "a password"
       })
 
       assert json_response(conn, 200)["data"]["id"] == user.id
