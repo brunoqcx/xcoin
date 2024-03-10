@@ -5,7 +5,7 @@ defmodule Xcoin.Currency.Rate do
 
   def get_value(start_currency, end_currency) do
     url = "#{@base_app_url}?symbols=#{end_currency}&base=#{start_currency}"
-    headers = [apikey: Application.fetch_env!(:exchange_api, :key), "Accept": "Application/json; Charset=utf-8"]
+    headers = [apikey: System.get_env("EXCHANGES_API_KEY"), "Accept": "Application/json; Charset=utf-8"]
     options = []
 
     case HTTPoison.get(url, headers, options) do
