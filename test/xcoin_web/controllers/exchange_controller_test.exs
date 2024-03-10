@@ -99,11 +99,6 @@ defmodule XcoinWeb.ExchangeControllerTest do
     end
   end
 
-  defp create_exchange(_) do
-    exchange = exchange_fixture()
-    %{exchange: exchange}
-  end
-
   defp create_session(%{conn: conn}) do
     user = user_fixture()
     conn = Guardian.Plug.sign_in(conn, user)
