@@ -1,5 +1,6 @@
 defmodule XcoinWeb.ExchangeControllerTest do
   use XcoinWeb.ConnCase
+  use Patch, only: [:patch], alias: [patch: :mock]
 
   import Xcoin.CurrencyFixtures
 
@@ -35,19 +36,61 @@ defmodule XcoinWeb.ExchangeControllerTest do
     setup [:create_session]
 
     test "renders exchange when data is valid", %{conn: conn} do
+      mocked_api_exchange_response_body = ~s(
+        {
+          "success": true,
+          "timestamp": 1710081423,
+          "base": "USD",
+          "date": "2024-03-10",
+          "rates": {
+              "JPY": 0.1
+          }
+        }
+      )
+
+      mocked_api_exchange_response = {:ok, %HTTPoison.Response{status_code: 200, body: mocked_api_exchange_response_body}}
+
+      mock(HTTPoison, :get, fn(_a, _b, _c) -> mocked_api_exchange_response end)
+
       conn = post(conn, ~p"/api/exchanges", exchange: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, ~p"/api/exchanges/#{id}")
 
       assert %{
-               "id" => ^id,
-               "end_currency" => "JPY",
-               "end_value" => nil,
-               "rate" => nil,
-               "start_currency" => "USD",
-               "start_value" => "100.0"
-             } = json_response(conn, 200)["data"]
+              "id" => ^id,
+              "end_currency" => "JPY",
+              "end_value" => "10",
+              "rate" => "0.1",
+              "start_currency" => "USD",
+              "start_value" => "100.00"
+            } = json_response(conn, 200)["data"]
+    end
+
+    test "renders error when exchange api fails with 400", %{conn: conn} do
+      mocked_api_exchange_response_body = ~s(
+        {}
+      )
+
+      mocked_api_exchange_response = {:ok, %HTTPoison.Response{status_code: 400, body: mocked_api_exchange_response_body}}
+
+      mock(HTTPoison, :get, fn(_a, _b, _c) -> mocked_api_exchange_response end)
+
+      conn = post(conn, ~p"/api/exchanges", exchange: @create_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+
+    test "renders error when exchange api fails", %{conn: conn} do
+      mocked_api_exchange_response_body = ~s(
+        {}
+      )
+
+      mocked_api_exchange_response = {:error, %HTTPoison.Error{reason: mocked_api_exchange_response_body}}
+
+      mock(HTTPoison, :get, fn(_a, _b, _c) -> mocked_api_exchange_response end)
+
+      conn = post(conn, ~p"/api/exchanges", exchange: @create_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

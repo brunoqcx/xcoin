@@ -39,14 +39,14 @@ defmodule Xcoin.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
-      {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
       {:bcrypt_elixir, "~> 2.0"},
       {:guardian, "~> 2.3"},
       {:ex_money, "~> 5.15"},
       {:httpoison, "~> 2.0"},
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.4"},
+      {:patch, "~> 0.13.0", only: [:test]}
     ]
   end
 
