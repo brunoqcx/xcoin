@@ -44,7 +44,9 @@ defmodule Xcoin.MixProject do
       {:bandit, "~> 1.2"},
       {:bcrypt_elixir, "~> 2.0"},
       {:guardian, "~> 2.3"},
-      {:ex_money, "~> 5.15"}
+      {:ex_money, "~> 5.15"},
+      {:httpoison, "~> 2.0"},
+      {:jason, "~> 1.4"}
     ]
   end
 

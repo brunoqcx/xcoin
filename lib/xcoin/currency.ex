@@ -13,7 +13,7 @@ defmodule Xcoin.Currency do
 
   ## Examples
 
-      iex> list_exchanges()
+      iex> list_exchanges(user)
       [%Exchange{}, ...]
 
   """

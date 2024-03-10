@@ -1,6 +1,7 @@
 defmodule Xcoin.Currency.Exchange do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Xcoin.Currency.Rate
 
   @valid_currencies ["USD", "EUR", "BRL", "JPY"]
 
@@ -42,7 +43,9 @@ defmodule Xcoin.Currency.Exchange do
     start_currency = String.to_atom(start_currency)
     end_currency = String.to_atom(end_currency)
     start_money = Money.new(start_currency, start_value)
-    rate = Decimal.new("1.57")
+
+    rate = Rate.get(start_currency, end_currency)
+
     { :ok, end_money } = Money.to_currency(start_money, end_currency, %{ start_currency =>  Decimal.new("1.0"), end_currency => rate})
 
     rounded_start_value  = Money.to_decimal(Money.round(start_money))
