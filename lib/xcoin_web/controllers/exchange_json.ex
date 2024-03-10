@@ -18,11 +18,13 @@ defmodule XcoinWeb.ExchangeJSON do
   defp data(%Exchange{} = exchange) do
     %{
       id: exchange.id,
+      user_id: exchange.user_id,
       start_value: exchange.start_value,
       start_currency: exchange.start_currency,
       end_value: exchange.end_value,
       end_currency: exchange.end_currency,
-      rate: exchange.rate
+      rate: exchange.rate,
+      creation_time: exchange.inserted_at
     }
   end
 end

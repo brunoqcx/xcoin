@@ -6,6 +6,7 @@ defmodule Xcoin.Accounts.User do
     field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    has_many :exchanges, Xcoin.Currency.Exchange
 
     timestamps(type: :utc_datetime)
   end

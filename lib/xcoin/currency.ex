@@ -17,8 +17,10 @@ defmodule Xcoin.Currency do
       [%Exchange{}, ...]
 
   """
-  def list_exchanges do
-    Repo.all(Exchange)
+  def list_exchanges(user) do
+    Exchange
+    |> where(user_id: ^user.id)
+    |> Repo.all()
   end
 
   @doc """
@@ -49,10 +51,12 @@ defmodule Xcoin.Currency do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_exchange(attrs \\ %{}) do
-    %Exchange{}
-    |> Exchange.changeset(attrs)
-    |> Repo.insert()
+
+  def create_exchange(user, attrs \\ %{})  do
+    user
+      |> Ecto.build_assoc(:exchanges)
+      |> Exchange.changeset(attrs)
+      |> Repo.insert()
   end
 
   @doc """

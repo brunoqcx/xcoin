@@ -8,7 +8,7 @@ defmodule Xcoin.Repo.Migrations.CreateExchanges do
       add :end_value, :decimal
       add :end_currency, :string
       add :rate, :decimal
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :restrict)
 
       timestamps(type: :utc_datetime)
     end
