@@ -7,15 +7,16 @@ defmodule Xcoin.CurrencyFixtures do
   @doc """
   Generate a exchange.
   """
-  def exchange_fixture(attrs \\ %{}) do
-    {:ok, exchange} =
+  def exchange_fixture(user, attrs \\ %{}) do
+    attrs =
       attrs
       |> Enum.into(%{
         start_currency: "USD",
         start_value: "100.0",
         end_currency: "JPY"
       })
-      |> Xcoin.Currency.create_exchange()
+
+    {:ok, exchange } = Xcoin.Currency.create_exchange(user, attrs)
 
     exchange
   end

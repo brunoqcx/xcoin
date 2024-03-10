@@ -49,7 +49,7 @@ defmodule Xcoin.Currency.Exchange do
     end_currency = String.to_atom(end_currency)
     start_money = Money.new(start_currency, start_value)
 
-    rate = Rate.get(start_currency, end_currency)
+    rate = Rate.get_value(start_currency, end_currency)
     case rate do
       { :ok, value } ->
         { :ok, end_money } = Money.to_currency(start_money, end_currency, %{ start_currency =>  Decimal.new("1.0"), end_currency => value})

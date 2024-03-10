@@ -3,7 +3,7 @@ defmodule Xcoin.Currency.Rate do
 
   @base_app_url "https://api.apilayer.com/exchangerates_data/latest"
 
-  def get(start_currency, end_currency) do
+  def get_value(start_currency, end_currency) do
     url = "#{@base_app_url}?symbols=#{end_currency}&base=#{start_currency}"
     headers = [apikey: Application.fetch_env!(:exchange_api, :key), "Accept": "Application/json; Charset=utf-8"]
     options = []
