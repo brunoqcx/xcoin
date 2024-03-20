@@ -7,7 +7,6 @@ It provides:
 
 ## How to use
 - sign up and get your api key here https://apilayer.com/marketplace/exchangerates_data-api
-- place you api key in .env file (replace the value in EXCHANGES_API_KEY)
 - replace the variable **rate_service_api_key** in **config/dev.exs** with your actual api key
 - make sure you have postgresql running on default port (5432)
 - run:
