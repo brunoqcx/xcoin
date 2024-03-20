@@ -14,9 +14,11 @@ defmodule Xcoin.Currency.Rate do
         { :ok, Decimal.from_float(value) }
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         { :error, nil }
+      {:ok, %HTTPoison.Response{status_code: 401}} ->
+        { :error, nil }
       {:ok, %HTTPoison.Response{status_code: 400}} ->
         { :error, nil }
-      {:error, %HTTPoison.Error{reason: reason}} ->
+      {:error, %HTTPoison.Error{reason: _reason}} ->
         { :error, nil }
     end
   end
