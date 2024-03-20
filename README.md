@@ -8,13 +8,14 @@ It provides:
 ## How to use
 - sign up and get your api key here https://apilayer.com/marketplace/exchangerates_data-api
 - place you api key in .env file (replace the value in EXCHANGES_API_KEY)
-- access the repo directory in your terminal
+- replace the variable **rate_service_api_key** in **config/dev.exs** with your actual api key
+- make sure you have postgresql running on default port (5432)
 - run:
 ```sh
-  source .env
+   mix phx.deps.get
 ```
 ```sh
-   mix phx.deps.get
+   mix ecto.migrate
 ```
 ```sh
    mix phx.server

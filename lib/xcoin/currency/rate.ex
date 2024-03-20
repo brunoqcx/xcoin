@@ -1,11 +1,9 @@
 defmodule Xcoin.Currency.Rate do
   use HTTPoison.Base
 
-  @base_app_url "https://api.apilayer.com/exchangerates_data/latest"
-
   def get_value(start_currency, end_currency) do
-    url = "#{@base_app_url}?symbols=#{end_currency}&base=#{start_currency}"
-    headers = [apikey: System.get_env("EXCHANGES_API_KEY"), "Accept": "Application/json; Charset=utf-8"]
+    url = "#{Application.fetch_env!(:xcoin, :rate_service_base_url)}?symbols=#{end_currency}&base=#{start_currency}"
+    headers = [apikey: Application.fetch_env!(:xcoin, :rate_service_api_key), "Accept": "Application/json; Charset=utf-8"]
     options = []
 
     case HTTPoison.get(url, headers, options) do

@@ -61,3 +61,7 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :xcoin,
+  rate_service_base_url: "https://api.apilayer.com/exchangerates_data/latest",
+  rate_service_api_key: "your_api_key"
